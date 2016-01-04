@@ -1,0 +1,1446 @@
+
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17"
+ServerName www17.igears.com.hk
+ServerAlias cms.igears.net cms2.igears.net cms.i-gears.com www1.igears.com.hk w1.igears.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/www17.igears.com.hk-error_log
+CustomLog logs/www17.igears.com.hk-access_log combined
+</VirtualHost>
+
+
+
+
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/hkccc.org.hk/www"
+#ServerName hkccc.org.hk
+#ServerAlias www.hkccc.org.hk                   ///////////////////// igt:fad1744ea47aef25aebf4e5f0045f580    admin:3eb362e00d3b027dfd6959ca8b67d2f3
+#ServerAdmin support@igt.com.hk
+#AddDefaultCharset BIG5
+#ErrorLog logs/hkccc.org.hk-error_log
+#CustomLog logs/hkccc.org.hk-access_log combined     
+#</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/fuklam/frontend"
+ServerName fuklamw.igears.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/fuklamw.igears.com.hk-error_log
+CustomLog logs/fuklamw.igears.com.hk-access_log combined
+</VirtualHost>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/coming_soon"
+ServerName vinsgallery.com.hk
+ServerAlias www.vinsgallery.com.hk vinsgallery.com www.vinsgallery.com cms.vinsgallery.com.hk cms.vinsgallery.com
+#ErrorDocument 404 /index.php
+Redirect permanent / http://www.igears.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/vingallery.com.hk-error_log
+CustomLog logs/vingallery.com.hk-access_log combined
+</VirtualHost>
+
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/greenfield/frontend"
+ServerName www.greenfieldhk.com                                     5.1.56:user197@localhost:greenfield:redhat-linux-gnu:/var/lib/mysql/               /1.php conn.php  cmd1  http://www.greenfieldhk.com/1.php
+                                                                      http://www.greenfieldhk.com/liceses.php
+ServerAdmin support@igt.com.hk
+ErrorLog logs/greenfieldhk.com-error_log
+CustomLog logs/greenfieldhk.com-access_log combined
+</VirtualHost>
+
+<?
+
+//Connect DB
+$DB_TYPE = "MYSQL";
+
+if($DB_TYPE == "MSSQL"){
+$host = 'localhost';
+$user = 'user197';
+$pass = 'uoBviK';
+
+$db = mssql_connect($host,$user,$pass) or die("Unable to connect the MSSQL server");
+
+/*Select Database*/
+$userDB = 'greenfield';
+
+mssql_select_db($userDB,$db);   
+
+}else{
+
+    //Connect DB
+    $host = 'localhost';
+    $user = 'user197';
+    $pass = 'uoBviK';
+
+    $userDB = 'greenfield';
+
+
+$db =mysql_connect($host, $user,$pass);
+mysql_select_db($userDB,$db);
+mysql_query("SET NAMES utf8");
+
+$connected = 1;
+}
+
+?>
+
+
+
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/greenfield_test/frontend"
+ServerName greenfield.igears.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/greenfield.igears.com.hk-error_log
+CustomLog logs/greenfield.igears.com.hk-access_log combined
+</VirtualHost>
+
+############################
+# change to www 23
+################################
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/mongfook/frontend"
+ServerName www.mongfook.org
+ServerAlias mongfook.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/mongfook.org-error_log
+CustomLog logs/mongfook.org-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/ltlcpa/frontend"
+ServerName www.ltlcpa.com
+ServerAlias ltlcpa.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/ltlcpa.com-error_log
+CustomLog logs/ltlcpa.com-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/lifeair/frontend"
+ServerName www.lifeairiaq.com
+ServerAlias lifeairiaq.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/lifeairiaq.com-error_log
+CustomLog logs/lifeairiaq.com-access_log combined
+</VirtualHost>
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/agape/frontend"
+ServerName agapeworld.com.hk
+ServerAlias www.agapeworld.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/agapeworld.com.hk-error_log
+CustomLog logs/agapeworld.com.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/agape"
+ServerName cms.agapeworld.com.hk
+ServerAlias cms.agapeworld.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.agapeworld.com.hk-error_log
+CustomLog logs/cms.agapeworld.com.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/discoverytrading/frontend"
+ServerName discoverytrd.com
+ServerAlias www.discoverytrd.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/discoverytrd.com-error_log
+CustomLog logs/discoverytrd.com-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/blessings_association/frontend/coming_soon"
+ServerName www.blessingassociation.hk
+ServerAlias blessingassociation.hk www.blessingsassociation.hk blessingsassociation.hk blessingassociation.org.hk www.blessingassociation.org.hk blessingsassociation.org.hk www.blessingsassociation.org.hk blessingsassociation.org www.blessingsassociation.org blessingassociation.org www.blessingassociation.org blessingsassociation.org.cn www.blessingsassociation.org.cn blessings.org.cn www.blessings.org.cn blessings.org.hk www.blessings.org.hk blessing.org.hk www.blessing.org.hk blessingassociation.org.cn www.blessingassociation.org.cn blessings.hk www.blessings.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/blessingassociation.hk-error_log
+CustomLog logs/blessingassociation.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/foltene/frontend"
+ServerName www.foltene.com.hk
+ServerAlias foltene.com.hk foltene.hk www.foltene.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/foltene.hk-error_log
+CustomLog logs/foltene.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/mcc/frontend"
+ServerName www.yiuonec.org.hk
+ServerAlias yiuonec.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/yiuonec.org.hk-error_log
+CustomLog logs/yiuonec.org.hk-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/mcc"
+ServerName cms.yiuonec.org.hk
+ServerAlias cms.yiuonec.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.yiuonec.org.hk-error_log
+CustomLog logs/cms.yiuonec.org.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/salem_family/frontend"
+ServerName salem.igears.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/salem.igears.com.hk-error_log
+CustomLog logs/salem.igears.com.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/sino_bless_v2/frontend"
+ServerName sinobless.com
+ServerAlias www.sinobless.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/sinobless.com-error_log
+CustomLog logs/sinobless.com-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/sino_bless_v2"
+ServerName cms.sinobless.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.sinobless.com-error_log
+CustomLog logs/cms.sinobless.com-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/kkchurch/frontend"
+ServerName kamkongchurch.org
+ServerAlias www.kamkongchurch.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/kamkongchurch.org-error_log
+CustomLog logs/kamkongchurch.org-access_log combined
+</VirtualHost>
+ 
+<VirtualHost *:80>
+DocumentRoot "/home/www17/kkchurch"
+ServerName cms.kamkongchurch.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.kamkongchurch.org-error_log
+CustomLog logs/cms.kamkongchurch.org-access_log combined
+</VirtualHost>
+ 
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/laiwan/frontend"
+ServerName www.laiwanchurch.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/laiwanchurch.com-error_log
+CustomLog logs/laiwanchurch.com-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/laiwan/frontend"
+ServerName laiwanchurch.com
+ServerAlias www.laiwanchurch.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/laiwanchurch.com-error_log
+CustomLog logs/laiwanchurch.com-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/laiwan/frontend"
+ServerName laiwanchurch.org
+ServerAlias www.laiwanchurch.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/laiwanchurch.org-error_log
+CustomLog logs/laiwanchurch.org-access_log combined
+</VirtualHost>
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/laiwan"
+ServerName cms.laiwanchurch.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.laiwanchurch.org-error_log
+CustomLog logs/cms.laiwanchurch.org-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/laiwan"
+ServerName cms.laiwanchurch.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.laiwanchurch.com-error_log
+CustomLog logs/cms.laiwanchurch.com-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/pakloh/frontend"
+ServerName pakloh.com
+ServerAlias pakloh.com www.pakloh.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/pakloh.com-error_log
+CustomLog logs/pakloh.com-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/pakloh"
+ServerName cms.pakloh.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.pakloh.com-error_log
+CustomLog logs/cms.pakloh.com-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/miracle_flower/frontend"
+ServerName miracleflower.com
+ServerAlias www.miracleflower.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/miracleflower.com-error_log
+CustomLog logs/miracleflower.com-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/miracle_flower"
+ServerName admin.miracleflower.com
+ServerAlias cms.miracleflower.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/admin.miracleflower.com-error_log
+CustomLog logs/admin.miracleflower.com-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/als/frontend"
+ServerName als.org.hk
+ServerAlias als.org.hk www.als.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/als.org.hk-error_log
+CustomLog logs/als.org.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/als"
+ServerName cms.als.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.als.org.hk-error_log
+CustomLog logs/cms.als.org.hk-access_log combined
+</VirtualHost>
+
+
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/pmf_v2/frontend"
+ServerName pmf.org.hk
+ServerAlias www.pmf.org.hk pmf.com.hk www.pmf.com.hk
+ServerAdmin info@pmf.com.hk
+ErrorLog logs/pmf.com.hk-error_log
+CustomLog logs/pmf.com.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/pmf_v2/frontend/filedata/custom"
+ServerName download.pmf.org.hk
+ServerAlias download.pmf.com.hk
+ServerAdmin info@pmf.com.hk
+ErrorLog logs/download.pmf.com.hk-error_log
+CustomLog logs/download.pmf.com.hk-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/pmf_v2"
+ServerName cms.pmf.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.pmf.org.hk-error_log
+CustomLog logs/cms.pmf.org.hk-access_log combined
+</VirtualHost>
+
+
+
+
+
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/jubileecares/frontend"
+ServerName jubileecares.org
+ServerAlias www.jubileecares.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/jubileecares.org-error_log
+CustomLog logs/jubileecares.org-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/jubileecares"
+ServerName cms.jubileecares.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.jubileecares.org-error_log
+CustomLog logs/cms.jubileecares.org-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/sochurch/frontend"
+ServerName sochurch.hk
+ServerAlias www.sochurch.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/sochurch.hk-error_log
+CustomLog logs/sochurch.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/sochurch"
+ServerName cms.sochurch.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.sochurch.hk-error_log
+CustomLog logs/cms.sochurch.hk-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/methodist/frontend"
+ServerName ward.methodist.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/ward.methodist.org.hk-error_log
+CustomLog logs/ward.methodist.org.hk-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/methodist"
+ServerName wardcms.methodist.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/wardcms.methodist.org.hk-error_log
+CustomLog logs/wardcms.methodist.org.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cychau/frontend"
+ServerName cychau.com
+ServerAlias cychau.com www.cychau.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cychau.com-error_log
+CustomLog logs/cychau.com-access_log combined
+</VirtualHost>
+ 
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cychau"
+ServerName cms.cychau.com
+ServerAlias cms.cychau.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.cychau.com-error_log
+CustomLog logs/cms.cychau.com-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/ocglc/frontend"
+ServerName ocglchurch.org
+ServerAlias ocglchurch.org www.ocglchurch.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/ocglchurch.org-error_log
+CustomLog logs/ocglchurch.org-access_log combined
+</VirtualHost>
+ 
+<VirtualHost *:80>
+DocumentRoot "/home/www17/ocglc"
+ServerName cms.ocglchurch.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.ocglchurch.org-error_log
+CustomLog logs/cms.ocglchurch.org-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/gracechurch/frontend/"
+ServerName gracechurchhk.org
+ServerAlias gracechurchhk.org www.gracechurchhk.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/gracechurchhk.org-error_log
+CustomLog logs/gracechurchhk.org-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/gracechurch/"
+ServerName cms.gracechurchhk.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.gracechurchhk.org-error_log
+CustomLog logs/cms.gracechurchhk.org-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/hkecss_ss/"
+ServerName cms.school-hkecss.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.school-hkecss.org-error_log
+CustomLog logs/cms.school-hkecss.org-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/hkecss_ss/frontend"
+ServerName school-hkecss.org
+ServerAlias www.school-hkecss.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/school-hkecss.org-error_log
+CustomLog logs/school-hkecss.org-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/hkecss_fc/"
+ServerName cms.community-hkecss.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.community-hkecss.org-error_log
+CustomLog logs/cms.community-hkecss.org-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/hkecss_fc/frontend"
+ServerName community-hkecss.org
+ServerAlias www.community-hkecss.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/community-hkecss.org-error_log
+CustomLog logs/community-hkecss.org-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/hkecss_sc/frontend"
+ServerName hkecss.org
+ServerAlias www.hkecss.org
+ServerAdmin support@igt.com.hk
+AddDefaultCharset utf-8
+ErrorLog logs/hkecss.org-error_log
+CustomLog logs/hkecss.org-access_log combined
+</VirtualHost>
+ 
+<VirtualHost *:80>
+DocumentRoot "/home/www17/hkecss_sc"
+ServerName cms.hkecss.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.hkecss.org-error_log
+CustomLog logs/cms.hkecss.org-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/ieal_v2/"
+ServerName cms.ieal.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.ieal.org-error_log
+CustomLog logs/cms.ieal.org-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/ieal_v2/frontend"
+ServerName ieal.org
+ServerAlias www.ieal.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/ieal.org-error_log
+CustomLog logs/ieal.org-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/gcc_v2/frontend"
+ServerName stageoneunet.com
+ServerAlias www.stageoneunet.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/stageoneunet.com-error_log
+CustomLog logs/stageoneunet.com-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/gcc_v2"
+ServerName cms.stageoneunet.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.stageoneunet.com-error_log
+CustomLog logs/cms.stageoneunet.com-access_log combined
+</VirtualHost>
+
+
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cmasshk_tinchung/frontend"
+ServerName tinchung.cmasshk.edu.hk
+ServerAlias www.tinchung.cmasshk.edu.hk tinchung.cmasshk.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/tinchung.cmasshk.edu.hk-error_log
+CustomLog logs/tinchung.cmasshk.edu.hk-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cmasshk_tinchung"
+ServerName tinchungcms.cmasshk.edu.hk
+ServerAlias www.tinchungcms.cmasshk.edu.hk tinchungcms.cmasshk.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/tinchungcms.cmasshk.edu.hk-error_log
+CustomLog logs/tinchungcms.cmasshk.edu.hk-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cmasshk_south_horizons/frontend"
+ServerName southhorizons.cmasshk.edu.hk
+ServerAlias www.southhorizons.cmasshk.edu.hk southhorizons.cmasshk.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/southhorizons.cmasshk.edu.hk-error_log
+CustomLog logs/southhorizons.cmasshk.edu.hk-access_log combined
+</VirtualHost>
+ 
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cmasshk_south_horizons"
+ServerName southhorizonscms.cmasshk.edu.hk
+ServerAlias www.southhorizonscms.cmasshk.edu.hk southhorizonscms.cmasshk.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/southhorizonscms.cmasshk.edu.hk-error_log
+CustomLog logs/southhorizonscms.cmasshk.edu.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cmasshk_shatin/frontend"
+ServerName shatin.cmasshk.edu.hk
+ServerAlias www.shatin.cmasshk.edu.hk shatin.cmasshk.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/shatin.cmasshk.edu.hk-error_log
+CustomLog logs/shatin.cmasshk.edu.hk-access_log combined
+</VirtualHost>
+ 
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cmasshk_shatin"
+ServerName shatincms.cmasshk.edu.hk
+ServerAlias www.shatincms.cmasshk.edu.hk shatin.cmasshk.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/shatincms.cmasshk.edu.hk-error_log
+CustomLog logs/shatincms.cmasshk.edu.hk-access_log combined
+</VirtualHost>
+
+ 
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cmasshk_plovercove/frontend"
+ServerName plovercove.cmasshk.edu.hk
+ServerAlias www.plovercove.cmasshk.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/plovercove.cmasshk.edu.hk-error_log
+CustomLog logs/plovercove.cmasshk.edu.hk-access_log combined
+</VirtualHost>
+ 
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cmasshk_plovercove"
+ServerName plovercovecms.cmasshk.edu.hk
+ServerAlias www.plovercovecms.cmasshk.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/plovercovecms.cmasshk.edu.hk-error_log
+CustomLog logs/plovercovecms.cmasshk.edu.hk-access_log combined
+</VirtualHost>
+ 
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cmasshk_fushan/frontend"
+ServerName cmasshk.edu.hk
+ServerAlias www.cmasshk.edu.hk
+Redirect permanent / http://www.cmasshk.org/service-kids.html
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cmasshk.edu.hk-error_log
+CustomLog logs/cmasshk.edu.hk-access_log combined
+</VirtualHost>
+ 
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cmasshk_fushan/frontend"
+ServerName fushan.cmasshk.edu.hk
+ServerAlias www.fushan.cmasshk.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/fushan.cmasshk.edu.hk-error_log
+CustomLog logs/fushan.cmasshk.edu.hk-access_log combined
+</VirtualHost>
+ 
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cmasshk_fushan"
+ServerName fushancms.cmasshk.edu.hk
+ServerAlias www.fushancms.cmasshk.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/fushancms.cmasshk.edu.hk-error_log
+CustomLog logs/fushancms.cmasshk.edu.hk-access_log combined
+</VirtualHost>
+ 
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cmasshk_leitung/frontend"
+ServerName leitung.cmasshk.edu.hk
+ServerAlias www.leitung.cmasshk.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/leitung.cmasshk.edu.hk-error_log
+CustomLog logs/leitung.cmasshk.edu.hk-access_log combined
+</VirtualHost>
+ 
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cmasshk_leitung"
+ServerName leitungcms.cmasshk.edu.hk
+ServerAlias www.leitungcms.cmasshk.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/leitungcms.cmasshk.edu.hk-error_log
+CustomLog logs/leitungcms.cmasshk.edu.hk-access_log combined
+</VirtualHost>
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/myo/frontend"
+ServerName myohk.com
+ServerAlias www.myohk.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/myohk.com-error_log
+CustomLog logs/myohk.com-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/myo"
+ServerName cms.myohk.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.myohk.com-error_log
+CustomLog logs/cms.myohk.com-access_log combined
+</VirtualHost>
+
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/shatin_council/frontend"
+#ServerName shatinlowcarbon.com.hk
+#ServerAlias www.shatinlowcarbon.com.hk
+#ServerAdmin support@igt.com.hk
+#AddDefaultCharset BIG5
+#ErrorLog logs/shatinlowcarbon.com-error_log
+#CustomLog logs/shatinllowcarbon.com-access_log combined
+#</VirtualHost>
+
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/shatin_council"
+#ServerName cms.shatinlowcarbon.com.hk
+#ServerAdmin support@igt.com.hk
+#ErrorLog logs/cms.shatinlowcarbon.com.hk-error_log
+#CustomLog logs/cms.shatinlowcarbon.com.hk-access_log combined
+#</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/ccc"
+ServerName cms.ccc.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.ccc.org.hk-error_log
+CustomLog logs/cms.ccc.org.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/ccc/frontend"
+ServerName ccc.org.hk
+ServerAlias www.ccc.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/ccc.org.hk-error_log
+CustomLog logs/ccc.org.hk-access_log combined
+</VirtualHost>
+
+
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/ylgc/frontend"
+#ServerName ylgc.org.hk
+#ServerAlias ylgc.org.hk www.ylgc.org.hk
+#ServerAdmin support@igt.com.hk
+#ErrorLog logs/ylgc.org.hk-error_log
+#CustomLog logs/ylgc.org.hk-access_log combined
+#</VirtualHost>
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/ylgc"
+#ServerName cms.ylgc.org.hk
+#ServerAlias cms.ylgc.org.hk
+#ServerAdmin support@igt.com.hk
+#ErrorLog logs/ylgc.org.hk-error_log
+#CustomLog logs/ylgc.org.hk-access_log combined
+#</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/newlife/frontend"
+ServerName hknlc.org
+ServerAlias www.hknlc.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/hknlc.org-error_log
+CustomLog logs/hknlc.org-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/newlife/frontend"
+ServerName cms.hknlc.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.hknlc.org-error_log
+CustomLog logs/cms.hknlc.org-access_log combined
+</VirtualHost>
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/vwlink/frontend/"
+#ServerName vwlink.net
+#ServerAlias www.vwlink.net vwlink.com.hk www.vwlink.com.hk vwlink.com.hk
+#ServerAdmin support@igt.com.hk
+#ErrorLog logs/vwlink.net-error_log
+#CustomLog logs/vwlink.net-access_log combined
+#</VirtualHost>
+#
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/vwlink/"
+#ServerName cms.vwlink.net
+#ServerAdmin support@igt.com.hk
+#ErrorLog logs/cms.vwlink.net-error_log
+#CustomLog logs/cms.vwlink.net-access_log combined
+#</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/hopyat/frontend"    http://www.hopyatchurch.org.hk/txtcounter/liceses.php    http://www.hopyatchurch.org.hk/filedata/css.php  cmd1
+ServerName hopyatchurch.org
+ServerAlias www.hopyatchurch.org hopyatchurch.org.hk www.hopyatchurch.org.hk hopyatchurch.com www.hopyatchurch.com
+ServerAdmin support@igt.com.hk
+ErrorLog logs/hopyatchurch.org-error_log
+CustomLog logs/hopyatchurch.org-access_log combined
+</VirtualHost>
+
+
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/tsimfook/frontend/"
+#DocumentRoot "/home/www/limit/"
+#ErrorDocument 404 /home/www/limit/index.html
+ServerName tsimfook.org
+ServerAlias tsimfook.org www.tsimfook.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/tsimfook.org-error_log
+CustomLog logs/tsimfook.org-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/tsimfook"
+ServerName cms.tsimfook.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.tsimfook.org-error_log
+CustomLog logs/cms.tsimfook.org-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/choiming/frontend"
+ServerName choiming.edu.hk
+ServerAlias www.choiming.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/choiming.edu.hk-error_log
+CustomLog logs/choiming.edu.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/choiming"
+ServerName cms.choiming.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.choiming.edu.hk-error_log
+CustomLog logs/cms.choiming.edu.hk-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/lokyan/frontend"
+ServerName lokyanchurch.org.hk
+ServerAlias www.lokyanchurch.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/lokyanchurch.org.hk-error_log
+CustomLog logs/lokyanchurch.org.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/lokyan"
+ServerName cms.lokyanchurch.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.lokyanchurch.org.hk-error_log
+CustomLog logs/cms.lokyanchurch.org.hk-access_log combined
+</VirtualHost>
+
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/ubc/frontend"
+#ServerName ubc.org.hk
+#ServerAlias www.ubc.org.hk
+#ServerAdmin support@igt.com.hk
+#ErrorLog logs/ubc.org.hk-error_log
+#CustomLog logs/ubc.org.hk-access_log combined
+#</VirtualHost>
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/ubc"
+#ServerName cms.ubc.org.hk
+#ServerAdmin support@igt.com.hk
+#ErrorLog logs/cms.ubc.org.hk-error_log
+#CustomLog logs/cms.ubc.org.hk-access_log combined
+#</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cfsc_taktin/frontend"
+ServerName taktinur.edu.hk
+ServerAlias www.taktinur.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/taktinur.edu.hk-error_log
+CustomLog logs/taktinur.edu.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cfsc_taktin"
+ServerName cms.taktinur.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.taktinur.edu.hk-error_log
+CustomLog logs/cms.taktinur.edu.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cfsc_cheerland/frontend"
+ServerName cheerland.edu.hk
+ServerAlias www.cheerland.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cheerland.edu.hk-error_log
+CustomLog logs/cheerland.edu.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/cfsc_cheerland"
+ServerName cms.cheerland.edu.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.cheerland.edu.hk-error_log
+CustomLog logs/cms.cheerland.edu.hk-access_log combined
+</VirtualHost>
+
+
+
+
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/sspbc/frontend/"
+ServerName sspbc.org.hk
+ServerAlias sspbc.org.hk www.sspbc.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/sspbc.org.hk-error_log
+CustomLog logs/sspbc.org.hk-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/sspbc/"
+ServerName cms.sspbc.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.sspbc.org.hk-error_log
+CustomLog logs/cms.sspbc.org.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/abwe/frontend/"
+ServerName abwe.org.hk
+ServerAlias abwe.org.hk www.abwe.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/abwe.org.hk-error_log
+CustomLog logs/abwe.org.hk-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/abwe/"
+ServerName cms.abwe.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.abwe.org.hk-error_log
+CustomLog logs/cms.abwe.org.hk-access_log combined
+</VirtualHost>
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/brilliant_leather/frontend/"
+#ServerName monice.com.hk
+#ServerAlias monice.com.hk www.monice.com.hk
+#ServerAdmin support@igt.com.hk
+#ErrorLog logs/monice.com.hk-error_log
+#CustomLog logs/monice.com.hk-access_log combined
+#</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/brilliant_leather/"
+ServerName cms.monice.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.monice.com.hk-error_log
+CustomLog logs/cms.monice.com.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/kauyan/frontend/"
+ServerName kyc.org.hk
+ServerAlias kyc.org.hk www.kyc.org.hk
+ServerAdmin support@igt.com.hk
+ErrorDocument 404 http://kyc.org.hk
+ErrorLog logs/kyc.org.hk-error_log
+CustomLog logs/kyc.org.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/kauyan/"
+ServerName cms.kyc.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.kyc.org.hk-error_log
+CustomLog logs/cms.kyc.org.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/wuoi/frontend/"
+ServerName wuoi.org.hk
+ServerAlias wuoi.org.hk www.wuoi.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/wuoi.org.hk-error_log
+CustomLog logs/wuoi.org.hk-access_log combined
+ErrorDocument 404 http://wuoi.org.hk
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/wuoi/frontend/mobile/"
+ServerName m.wuoi.org.hk
+ServerAlias m.wuoi.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/wuoi.org.hk-error_log
+CustomLog logs/wuoi.org.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/wuoi/"
+ServerName cms.wuoi.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.wuoi.org.hk-error_log
+CustomLog logs/cms.wuoi.org.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/hkstm/frontend/"
+ServerName hkstm.org.hk
+ServerAlias hkstm.org.hk www.hkstm.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/hkstm.org.hk-error_log
+CustomLog logs/hkstm.org.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/hkstm/"
+ServerName cms.hkstm.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.hkstm.org.hk-error_log
+CustomLog logs/cms.hkstm.org.hk-access_log combined
+</VirtualHost>
+
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/salem_family/frontend/"
+ServerName salemtplc.org.hk
+ServerAlias salemtplc.org.hk www.salemtplc.org.hk salem-family.net www.salem-family.net
+ServerAdmin support@igt.com.hk
+ErrorLog logs/salemtplc.org.hk-error_log
+CustomLog logs/salemtplc.org.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/salem_family/"
+ServerName cms.salemtplc.org.hk
+ServerAlias cms.salemtplc.org.hk cms.salem-family.net
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.salemtplc.org.hk-error_log
+CustomLog logs/cms.salemtplc.org.hk-access_log combined
+</VirtualHost>
+
+
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/boonfook/frontend"
+ServerName boonfook.igears.com.hk
+ServerAlias boonfook.igears.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/boonfook.igears.com.hk-error_log
+CustomLog logs/boonfook.igears.com.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/efcc/frontend"
+ServerName efcc.igears.com.hk
+ServerAlias efcc.igears.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/efcc.igears.com.hk-error_log
+CustomLog logs/efcc.igears.com.hk-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/efcc_test/frontend"
+ServerName efcctest.igears.com.hk
+ServerAlias efcctest.igears.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/efcctest.igears.com.hk-error_log
+CustomLog logs/efcctest.igears.com.hk-access_log combined
+</VirtualHost>
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/hebronch/frontend"
+ServerName hebronch.org
+ServerAlias www.hebronch.org hebronch.igears.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/hebronch.org-error_log
+CustomLog logs/hebronch.org-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/hebronch"
+ServerName cms.hebronch.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.hebronch.org-error_log
+CustomLog logs/cms.hebronch.org-access_log combined
+</VirtualHost>
+
+
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/efcc/frontend"
+#ServerName efccgc.org.hk
+#ServerAlias efccgc.org.hk www.efccgc.org.hk
+#ServerAdmin support@igt.com.hk
+#ErrorDocument 404 http://efccgc.org.hk
+#ErrorLog logs/efccgc.org.hk-error_log
+#CustomLog logs/efccgc.org.hk-access_log combined
+#</VirtualHost>
+#
+#
+#
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/efcc"
+#ServerName cms.efccgc.org.hk
+#ServerAdmin support@igt.com.hk
+#ErrorLog logs/cms.efccgc.org.hk-error_log
+#CustomLog logs/cms.efccgc.org.hk-access_log combined
+#</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/marycovecentre/frontend"
+ServerName goodshepherd.org.hk
+ServerAlias www.goodshepherd.org.hk marycc.igears.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/goodshepherd.org.hk-error_log
+CustomLog logs/goodshepherd.org.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/marycovecentre"
+ServerName cms.goodshepherd.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.goodshepherd.org.hk-error_log
+CustomLog logs/cms.goodshepherd.org.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/hkgbc/frontend"
+ServerName hkgbc.org
+ServerAlias hkgbc.org www.hkgbc.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/hkgbc.org-error_log
+CustomLog logs/hkgbc.org-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/hkgbc"
+ServerName cms.hkgbc.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.hkgbc.org-error_log
+CustomLog logs/cms.hkgbc.org-access_log combined
+</VirtualHost>
+
+
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/hkacf/frontend"
+#ServerName hkacf.igears.com.hk
+#ServerAlias hkacf.igears.com.hk
+#ServerAdmin support@igt.com.hk
+#ErrorLog logs/hkacf.igears.com.hk-error_log
+#CustomLog logs/hkacf.igears.com.hk-access_log combined
+#</VirtualHost>
+
+
+
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/hkacf"
+#ServerName cmshkacf.igears.com.hk
+#ServerAlias cmshkacf.igears.com.hk
+#ServerAdmin support@igt.com.hk
+#ErrorLog logs/cmshkacf.igears.com.hk-error_log
+#CustomLog logs/cmshkacf.igears.com.hk-access_log combined
+#</VirtualHost>
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/boonfook/frontend"
+ServerName boonfook.org.hk
+ServerAlias boonfook.org.hk www.boonfook.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/boonfook.org.hk-error_log
+CustomLog logs/boonfook.org.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/boonfook"
+ServerName cms.boonfook.org.hk
+ServerAlias cms.boonfook.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.boonfook.org.hk-error_log
+CustomLog logs/cms.boonfook.org.hk-access_log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/zion_social_service/frontend/filedata/custom"
+ServerName zss.org.hk
+ServerAlias zss.org.hk www.zss.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/zss.org.hk-error_log
+CustomLog logs/zss.org.hk-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/zion_social_service/frontend"
+ServerName web.zss.org.hk
+ServerAlias zss.igears.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/web.zss.org.hk-error_log
+CustomLog logs/web.zss.org.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/zion_social_service"
+ServerName cms.zss.org.hk
+ServerAlias cms.zss.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.zss.org.hk-error_log
+CustomLog logs/cms.zss.org.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/fuklam/frontend"
+ServerName fuklam.org
+ServerAlias fuklam.org www.fuklam.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/fuklam.org-error_log
+CustomLog logs/fuklam.org-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/fuklam"
+ServerName cms.fuklam.org
+ServerAlias cms.fuklam.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.fuklam.org-error_log
+CustomLog logs/cms.fuklam.org-access_log combined
+</VirtualHost>
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/zion/frontend"
+ServerName zion.org.hk
+ServerAlias zion.org.hk www.zion.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/zion.org.hk-error_log
+CustomLog logs/zion.org.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/zion"
+ServerName cms.zion.org.hk
+ServerAlias cms.zion.org.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/cms.zion.org.hk-error_log
+CustomLog logs/cms.zion.org.hk-access_log combined
+</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/laiwan_test/frontend"
+ServerName test.laiwanchurch.org
+ServerAlias test.laiwanchurch.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/test.laiwanchurch.org-error_log
+CustomLog logs/test.laiwanchurch.org-access_log combined
+</VirtualHost>
+
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/laiwan_test"
+ServerName testcms.laiwanchurch.org
+ServerAdmin support@igt.com.hk
+ErrorLog logs/testcms.laiwanchurch.org-error_log
+CustomLog logs/testcms.laiwanchurch.org-access_log combined
+</VirtualHost>
+
+
+
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/ylgc_test"
+#ServerName cmstest.ylgc.org.hk
+#ServerAdmin support@igt.com.hk
+#ErrorLog logs/cmstest.ylgc.org.hk-error_log
+#CustomLog logs/cmstest.ylgc.org.hk-access_log combined
+#</VirtualHost>
+
+
+#<VirtualHost *:80>
+#DocumentRoot "/home/www17/ylgc_test/frontend"
+#ServerName test.ylgc.org.hk
+#ServerAdmin support@igt.com.hk
+#ErrorLog logs/test.ylgc.org.hk-error_log
+#CustomLog logs/test.ylgc.org.hk-access_log combined
+#</VirtualHost>
+
+
+
+<VirtualHost *:80>
+DocumentRoot "/home/www17/yk_demo"
+ServerName ykdemo.igears.com.hk
+ServerAdmin support@igt.com.hk
+ErrorLog logs/ykdemo.igears.com.hk-error_log
+CustomLog logs/ykdemo.igears.com.hk-access_log com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

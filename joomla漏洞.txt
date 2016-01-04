@@ -1,0 +1,2 @@
+***密码修改漏洞：index.php?option=com_user&view=reset&layout=confirm       （version:1.5.*）
+***查看jooomla版本：/language/en-GB/en-GB.xml

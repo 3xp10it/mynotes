@@ -1,0 +1,301 @@
+示例站点:
+	www.xx.org
+	1) 搜集目标信息
+		-> 	ping www.xx.org  看ip
+		-> 	ping xx.org      看ip   	
+		-> 	nslookup -type=A xx.org 8.8.8.8    看下A记录指向的地址
+		-> 	使用网上的一些站长工具中的类似 '超ping' 功能 ping www.xx.org 看下解析到的地址是否为同一地址 
+		-> 	whois信息,看下域名的注册时间,网站的规模和网站头标记中的版权信息,以及robots.txt文件,以此来判断各大收录量(谷歌也会用到)
+			->  注意看下robost.txt中有没有后台入口,以及上传和数据库目录等等
+		-> 	注:如果以上几次测试都被解析到同一ip基本可判断无cdn
+		->  telnet 使用http中的options和head方法来请求下目标站点
+			->  看看支不支持put,move,copy等方法,顺便也可以看下头中server信息,很可能就会有web服务名称版本和脚本的版本等等
+			->  如果支持,看看能不能写shell,这个真的是看rp的
+		
+		如果没有cdn继续:
+			-> 	nslookup -type=ns xxx.org  8.8.8.8  目标ns服务器,看对方的ns服务器地址
+			-> 	nslookup -type=mx xxx.org  8.8.8.8  目标邮件交换记录,主要是为了对方有没有mail服务器以及mail服务器的地址
+			-> 	ping ns.xx.org 	  得到ns服务器的地址
+			-> 	ping mail.xx.org  得到mail服务器的地址
+			-> 	dig @ns.xx.org xx.org axfr   看下有没有传送  @后跟的必须是目标自己的ns服务器地址
+			-> 	注意:这里用来解析的dns地址最好用境外的,当然如果已经找到目标的ns服务器,查域名A记录,就完全可以用目标的ns服务器,这样会准一些吧
+		
+		
+		如果有cdn则:
+			-> 	看下站点有没有注册功能,如果有就注册一个,然后看下验证邮件头中的ip,看看这个ip和ping域名的ip是否为同一个或者在同一个C段内
+				-> 	如果如果同一个基本能确定邮件服务器和web服务器为同一机器上,但基本不会这么做
+				-> 	如果为同一个C段中,可以用zmap或者masscan扫下80,8080,443 然后ip类似 http/https://121.22.43.2:8080这样挨个换ip访问,很快就能找到主站的ip被解析到哪里了
+			
+			-> 	爆破站点的子域名,用脚本或者子域挖掘工具都可以,看下子域ip段分布情况,机器数量情况,如果一个段web能访问的机器特别多,基本就可以确定ip确实目标的
+				-> 	爆破子域的时候顺便可以找一下目标的外部vpn入口,owa入口,svn入口,看看能不能正常访问,为后续的直接进内网和其它事情做准备
+			
+			-> 	www.netcraft.com 查下ip历史记录
+			
+			-> 	直接访问phpinfo.php 文件,主站web服务器一般都不会有,看下子站,很可能就会有,然后看下$_SERVER全局数组中的东西
+				->  DOCUMENT_ROOT  目标网站根目录 
+					->   为后续的注入导入导出一句话,执行系统命令做准备,前提权限必须够才行
+				->  SERVER_NAME	   目标网站域名 
+				->  SERVER_ADDR	   目标站ip  		
+					->  确定ip段,后续为旁注,C段做准备
+				->  SERVER_PORT	   服务器端口
+				->  allow_url_fopen    文件资源开关情况
+					->  远程包含此开关必须开启
+				->  magic_quotes_gpc   魔数引号开关
+					->  宽字节注入参考依据
+				->  Default timezone   缺省时区设置,有必要知道
+				
+			->  现在负载均衡很流行,可以用lbd命令来看看目标有没有使用负载均衡
+			
+			注意: 这里要稍微总结下,搜集到的ip段和分站信息,并确定要下手的分站,继续
+			
+	
+	2)常用google dorks 搜集web相关信息 所有的后缀以php为例,也可以是asp,aspx,cgi,do,cer,cdx,asa,php3,php4
+		->  信息泄露:
+			->  物理路径  写shell用
+				inurl:"id=" & intext:"Warning: mysql_fetch_assoc()
+				inurl:"id=" & intext:"Warning: mysql_fetch_array()
+				inurl:"id=" & intext:"Warning: mysql_num_rows()
+				inurl:"id=" & intext:"Warning: session_start()
+				inurl:"id=" & intext:"Warning: getimagesize()
+				inurl:"id=" & intext:"Warning: is_writable()
+				inurl:"id=" & intext:"Warning: getimagesize()
+				inurl:"id=" & intext:"Warning: Unknown()
+				inurl:"id=" & intext:"Warning: session_start()
+				inurl:"id=" & intext:"Warning: mysql_result()
+				inurl:"id=" & intext:"Warning: pg_exec()
+				inurl:"id=" & intext:"Warning: mysql_result()
+				inurl:"id=" & intext:"Warning: mysql_num_rows()
+				inurl:"id=" & intext:"Warning: mysql_query()
+				inurl:"id=" & intext:"Warning: array_merge()
+				inurl:"id=" & intext:"Warning: preg_match()
+				inurl:"id=" & intext:"Warning: ilesize()
+				inurl:"id=" & intext:"Warning: filesize()
+				inurl:"id=" & intext:"Warning: filesize()
+				inurl:"id=" & intext:"Warning: require()
+				id= & intext:Warning: Cannot modify header information
+				"Warning: Bad arguments to (join|implode) () in" "on line" -help -forum
+				"Warning: Cannot modify header information – headers already sent"
+				"Warning: Division by zero in" "on line" -forum
+				"Warning: mysql_connect(): Access denied for user: ‘*@*" "on line" -help -forum
+				"Warning: mysql_query()" "invalid query"
+				"Warning: pg_connect(): Unable to connect to PostgreSQL server: FATAL"
+				"Warning: Supplied argument is not a valid File-Handle resource in"
+				"Warning:" "failed to open stream: HTTP request failed" "on line"
+				"Warning:" "SAFE MODE Restriction in effect." "The s?ri?t whose uid is" "is not allowed to access owned by uid 0 in" "on 
+				
+			->  目录遍历  
+				->  index of /admin
+				
+			->  扫描网站备份文件,数据备份以及其他敏感文件等等 利用wwwscan 制作好备份和数据库目录字典
+				->  filetype:ini ws_ftp pwd
+					filetype:bak createobject sa
+					filetype:bak inurl:"htaccess|passwd|shadow|htusers"
+					filetype:url +inurl:"ftp://" +inurl:";@"
+					filetype:xls username password email
+					inurl:*db filetype:mdb
+					inurl:/phpmyadmin/phpinfo.php
+					inurl:phpinfo.php/info.php/test.php
+					
+			->  识别网站程序 例如: drupal wordpress joomla phpbb discuz……
+				-> 如果是开源程序,直接找最近的exp
+			
+		->  找后台管理入口:
+			->  利用谷歌:
+				intitle:"Admin Login" "admin login" "blogware"
+				intitle:"Admin login" "Web Site Administration" "Copyright"
+				intitle:"Welcome Site/User Administrator" 
+				site:xx.org inurl:/admin/login[index]
+				site:xx.org inurl:/system/login[index]
+				site:xx.org inurl:/manage/login[index]
+				site:xx.org inurl:/administrator/login[index]
+				site:xx.org inurl:/cms/login[index]
+				site:xx.org inurl:/background/login[index]
+				site:xx.org inurl:/manager/login[index]
+				site:xx.org inurl:/admin_login
+				site:xx.org intitle:admin login
+				site:xx.org intitle:system login
+				
+				
+				
+			->  工具:
+				->  cscan谷歌插件,字典爆破,短文件漏洞扫描,在站点上找找有没有后台的入口
+		
+		->  找包含文件的参数：
+			inurl:php?page=
+			inurl:php?act=
+			inurl:php?action=
+			inurl:php?API_HOME_DIR=
+			inurl:php?board=
+			inurl:php?cat=
+			inurl:php?client_id=
+			inurl:php?cmd=
+			inurl:php?cont=
+			inurl:php?current_frame=
+			inurl:php?date=
+			inurl:php?detail=
+			inurl:php?dir=
+			inurl:php?display=
+			inurl:php?download=
+			inurl:php?f=
+			inurl:php?file=
+			inurl:php?fileinclude=
+			inurl:php?filename=
+			inurl:php?firm_id=
+			inurl:php?g=
+			inurl:php?getdata=
+			inurl:php?go=
+			inurl:php?HT=
+			inurl:php?idd=
+			inurl:php?inc=
+			inurl:php?incfile=
+			inurl:php?incl=
+			inurl:php?include_file=
+			inurl:php?include_path=
+			inurl:php?infile=
+			inurl:php?info=
+			inurl:php?ir=
+			inurl:php?lang=
+			inurl:php?language=
+			inurl:php?link=
+			inurl:php?load=
+			inurl:php?main=
+			inurl:php?mainspot=
+			inurl:php?msg=
+			inurl:php?num=
+			inurl:php?openfile=
+			inurl:php?p=
+			inurl:php?page=
+			inurl:php?pagina=
+			inurl:php?path=
+			inurl:php?path_to_calendar=
+			inurl:php?pg=
+			inurl:php?qry_str=
+			inurl:php?ruta=
+			inurl:php?safehtml=
+			inurl:php?section=
+			inurl:php?showfile=
+			inurl:php?side=
+			inurl:php?site_id=
+			inurl:php?skin=
+			inurl:php?static=
+			inurl:php?str=
+			inurl:php?strona=
+			inurl:php?sub=
+			inurl:php?tresc=
+			inurl:php?url=
+			inurl:php?user=
+			inurl:ajax.php?page=
+			inurl:/view/lang/index.php?page=?page=
+			page.php?file=
+			file.php?inc=
+			template.php?where=
+			php?path=
+			print.php?open=
+			show.php?home=
+			php?base_dir=
+			page.php?url=
+			php?goto=
+			php?left=
+			head.php?filepath=
+			press.php?dir=
+			php?open=
+			main.php?load=
+			php?redirect=
+			php?pre=
+			php?pageweb=
+			php?link=
+			php?basepath=
+			php?read=
+			show.php?get=
+			down*.php?r=
+			php?phpbb_root_path=
+			php?goFile=
+			file.php?basepath=
+			php?include=
+			php?cal_dir=
+			ndex.php?lng=
+			
+			
+		->  找上传点(包括编辑器):
+		
+		
+		->  找执行的参数:
+			php?eval=
+			php?var=
+			general.php?qry=
+			
+		->  找注入:
+			字符型判断:
+				'+and+'1'='1
+				'+and+'1'='2
+				’+and(select count(*) from admin )>0+and''='
+			article.php?id=
+			newsDetail.php?id=
+			news_view.php?id=
+			view.php?id=
+			offer.php?id=
+			main.php?id=
+			review.php?id=
+			detail.php?ID=
+			profile_view.php?id=
+			view.php?*[*]*=
+			info.php?option=
+			main.php?type=
+			nota.php?content=
+			php?prefix=
+			php?root_PATH=
+			php?server=
+			event.php?id=
+			download.php?id=
+			SQL syntax error
+			
+		->  找下别人的webshell:
+		
+		->  owa和vpn入口
+			intitle:"Dell Remote Access Controller"
+		
+		->  找所有参数
+			php?*[*]*=
+		
+		
+			
+	->  服务器相关信息:
+		
+		->  开放的服务及版本(可以尝试用nessus扫一下,一般是不会有溢出的):
+			nmap  可以用脚本检测下系统什么的还有一些web上的目录信息
+			ftp   21
+			ssh   22
+			mysql 3306
+			mssql 1433
+			rdp   3389
+		
+		->  爆破,cupp做高质量字典,不管是用hydra还是medusa,包一般都会被防火墙扔掉
+	
+	->  手工在网站上找各种传参的地方
+		搜索,注册登录,新闻详情页看参数,不管是GET还是POST都尝试一遍
+		有的人比较喜欢用$_request() 也可以试试cookie注入,所有的地方都试过了,还不行就继续下面的
+		
+		
+	->  最后上各种wvs
+		netsparker awvs appscan  w3af_console nikto nessus wpscan…… 
+		
+		
+	->  提权
+		->  windows
+			
+		
+		->  Linux
+		
+		
+		
+	->  收集目标邮箱,越多越好,留着最后发信用
+		->  工具: maltego, theharvester,foca,google hacking……
+			
+	
+	3)内网部分
+	
+					
+				
+			
+			
+			

