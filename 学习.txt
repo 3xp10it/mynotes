@@ -180,7 +180,6 @@
 							https://www.microsoft.com/en-us/download/confirmation.aspx?id=35460（win）
 							http://alternativeto.net/software/mouse-without-borders2/?platform=linux(linux)
 							x2vnc(目前认为最好，通过vnc达到mouse without borders的功能！！)
+              
 							
-=======
-	git push -u origin master
->>>>>>> 9a679509e551f014f0d31a7af78f291cc15ec32e
+
