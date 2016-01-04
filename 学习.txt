@@ -174,12 +174,18 @@
 	git remote add origin url
 	git commit -a -m "xxx"<没有这一步会显示error>
 	git push -u origin master
+
+  更新部分文件时，提交更新：
+  git add file(new)
+  git status(check is the file status is ok)
+  git commit -a -m "something"(without commit command can not update the file,this is a 'must')
+  git push -u origin master
 35.生活学习：1>(本杰明-富兰克林13条)http://www.201980.com/lizhi/chenggong/9386.html
 			2>（曾国藩修身12条）http://www.201980.com/lizhi/chenggong/8007.html
 36.mouse without borders:多屏幕同键盘鼠标控制
 							https://www.microsoft.com/en-us/download/confirmation.aspx?id=35460（win）
 							http://alternativeto.net/software/mouse-without-borders2/?platform=linux(linux)
 							x2vnc(目前认为最好，通过vnc达到mouse without borders的功能！！)
-              
+
 							
 
