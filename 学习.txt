@@ -24,7 +24,7 @@
     SET PASSWORD FOR 'username'@'host' = PASSWORD('newpassword');
     修改权限
     GRANT privileges ON databasename.tablename TO 'username'@'host' WITH GRANT OPTION；（databasename.tablename可为*.*,privileges可为all,注意databasename和tablename中不要有'.'这个标点，否则databasename.tablename不知道在哪儿算作分开，eg.gv32_cms5.1.9是数据库名，则会出错）
-14.ip:%23.23.23.23    (bing)
+14.ip:23.23.23.23    (bing)
 15.暴路径http://www.lxway.com/1191778.html  
 16.sublime text快捷键好东西：http://www.cnblogs.com/lanxuezaipiao/p/4151095.html
 	ctrl+D,ctrl+shift+k,ctrl+shift+<-/->,按住shift右键拖动鼠标多行编辑，set syntax:python,ctrl+enter,ctrl+shift+enter,ctrl+[/],ctrl+shift+v完整粘贴源代码格式，移动一行ctrl+shift+上/下
@@ -72,6 +72,7 @@
 	http://cduan.cc/ma/index.htm
 	php-b374k(PHP version > 4.3.3 and PHP 5):https://github.com/b374k
 		     (browser old version): https://code.google.com/p/b374k-shell/
+  http://www.dcvi.net/
 23.经典入侵思路:
 	http://www.2cto.com/Article/201201/115793.html(伪静态注入到获得webshell)
 24.cookie注入中转http://www.rising.com.cn/newsletter/news/2012-08-23/12195.html(目前认为只可asp,get)
@@ -87,15 +88,7 @@
    may helpful:https://github.com/google/google-api-python-client/tree/master/samples/customsearch
    may helpful:http://wescpy.blogspot.com/2014/09/simple-google-api-access-from-python.html   http://wescpy.blogspot.com/2014/11/authorized-google-api-access-from-python.html
    具体详情见百度云盘笔记文件夹
-28.linux的git使用:
-	http://www.linuxidc.com/Linux/2014-02/96989.htm
-	完成密钥的设置后:
-	git init
-	git add .
-	git remote add origin url
-	git commit -a -m "xxx"<没有这一步会显示error>
-<<<<<<< HEAD
-	git push -u origin master
+28..NET reverse tool(graywolf):https://www.digitalbodyguard.com/graywolf.html
 29.linux fdisk->ext3->mount:http://cuchadanfan.blog.51cto.com/9940284/1671416
 30.Cknife  java环境菜刀  已放到/usr/share
 31.免杀一句话:http://blog.hacku.cn/post/260.html
@@ -189,7 +182,7 @@
   git add newfile
   git commit -a -m "xxx"
   git remote add origin tar_url
-  git push -u origin master
+  git push -u origin master                                               
 
 35.生活学习：1>(本杰明-富兰克林13条)http://www.201980.com/lizhi/chenggong/9386.html
 			2>（曾国藩修身12条）http://www.201980.com/lizhi/chenggong/8007.html
@@ -202,6 +195,30 @@
   <FilesMatch "haha">
   SetHandler application/x-httpd-php
   </FilesMatch>
+39.临时的一种暴路径思路：netsparker扫出有输入的php页面及输入变量名，然后用awvs里面的fuzz功能fuzz，得到暴错的路径，可试。
+40.locate *.doc > doc.list && locate *.docx > docx.list && locate *.pdf > pdf.list && locate *.txt > txt.list && locate *.xls > xls.list && locate *.xlsx > xlsx.list && locate *.jpg > jpg.list && locate *.png > png.list
+   tar -czf code.tar.gz * && tar -T doc.list -czf doc.tar.gz && tar -T docx.list -czf docx.tar.gz && tar -T pdf.list -czf pdf.tar.gz && tar -T txt.list -czf txt.tar.gz && tar -T xls.list -czf xls.tar.gz && tar -T xlsx.list -czf xlsx.tar.gz && tar -T jpg.list -czf jpg.tar.gz && tar -T png.list -czf png.tar.gz
+   
+   or when there exist the same ip but different site:
 
-							
+   find -regex ".*\.\(doc\|docx\)" > doc.list && find -regex ".*\.pdf" > pdf.list && find -regex ".*\.txt" > txt.list && find -regex ".*\.\(xls\|xlsx\)" > xls.list && find -regex ".*\.\(jpg\|png\)" > jpg.list    
+   ///find . -regex "xxx"   (.)  .  can be used or not while they both mean find the current path
+   ///sometimes the system may not support && to execute "find",then we should execute above find command without "&&" and find them one by one
+   ///or maybe sometimes the system may not support -regex in find command
+   ///or maybe sometimes the system may not support without path command with find,use . or ./ better any time find the current path 
+   then the better answer:
+   find . -name "*.doc" > doc.list && find . -name "*.docx" > docx.list && find . -name "*.pdf" > pdf.list && find . -name "*.txt" > txt.list && find . -name "*.xls" > xls.list && find . -name "*.xlsx" > xlsx.list && find . -name "*.jpg" > jpg.list && find . -name "*.png" > png.list
+   tar -czf code.tar.gz * && tar -T doc.list -czf doc.tar.gz && tar -T docx.list -czf docx.tar.gz && tar -T pdf.list -czf pdf.tar.gz && tar -T txt.list -czf txt.tar.gz && tar -T xls.list -czf xls.tar.gz && tar -T xlsx.list -czf xlsx.tar.gz && tar -T jpg.list -czf jpg.tar.gz && tar -T png.list -czf png.tar.gz
+   ///however,i found that "&&" or "||" are both not the best,coz command "a && b" means only command "a" execute successly,then "b" can execute
+   ///comman "a || b" means if "a" execute successly,then "b" will not execute
+   ///but comman "a;b" means "a" and "b" will both execute,no mater the former "a" execute successfully or not 
+   so,the better and beeter combine command is:
+   find . -name "*.doc" > doc.list;find . -name "*.docx" > docx.list;find . -name "*.pdf" > pdf.list;find . -name "*.txt" > txt.list;find . -name "*.xls" > xls.list;find . -name "*.xlsx" > xlsx.list;find . -name "*.jpg" > jpg.list;find . -name "*.png" > png.list
+   tar -czf code.tar.gz *;tar -T doc.list -czf doc.tar.gz;tar -T docx.list -czf docx.tar.gz;tar -T pdf.list -czf pdf.tar.gz;tar -T txt.list -czf txt.tar.gz;tar -T xls.list -czf xls.tar.gz;tar -T xlsx.list -czf xlsx.tar.gz;tar -T jpg.list -czf jpg.tar.gz;tar -T png.list -czf png.tar.gz
+41.kali linux2.0 import folder path:/usr/share/applications   eg.gnome-control-center network
+42.http://www.orico.com.cn/   driver 		
+43.python中单引号，双引号，三引号http://blog.csdn.net/caianye/article/details/6638183				
+44.mygoogle dork：http://waziristanihaxor.blogspot.hk/2015/03/5000-fresh-google-dorks-list-for-sql.html
+   inurl:"php"|"php page="|"php id="|"php tid="|"php pid="|"php cid="|"php path="|"php cmd="|"php file="|"php cartId="|"php bookid="|"php num="|"php idProduct="|"php ProdId="|"php idCategory="|"php intProdID="|"cfm storeid="|"php catid="|"php cart_id="|"php order_id="|"php catalogid="|"php item="|"php title="|"php CategoryID="|"php action="|"php newsID="|"php newsid="|"php product_id="|"php cat="|"php parent_id="|"php view="|"php itemid=" site:www.facebook.com
+45.os.system('''python %s >> "out_log.txt"''' % exp_path) ">>" instead of "open(file,"a+") fp.write(str)" in py2 or py3
 
